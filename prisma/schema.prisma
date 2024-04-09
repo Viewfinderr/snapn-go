@@ -1,0 +1,183 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Cart {
+  idCart    Int         @id @default(autoincrement())
+  ItemsCart ItemsCart[]
+  Users     Users[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Categories {
+  id              BigInt            @id @default(autoincrement())
+  name            String            @db.VarChar
+  categoriesItems categoriesItems[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Favorites {
+  idFavorites    Int              @id @default(autoincrement())
+  ItemsFavorites ItemsFavorites[]
+  Users          Users[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Historique {
+  idHistorique    Int               @id @default(autoincrement())
+  ItemsHistorique ItemsHistorique[]
+  Users           Users[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Ingredient {
+  id               BigInt             @id @default(autoincrement())
+  content          String
+  IngredientsItems IngredientsItems[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model IngredientsItems {
+  id            BigInt     @id @default(autoincrement())
+  idIngredients BigInt
+  idItem        BigInt?
+  Ingredient    Ingredient @relation(fields: [idIngredients], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "public_IngredientsItems_idIngredients_fkey")
+  Items         Items?     @relation(fields: [idItem], references: [idItem], onDelete: NoAction, onUpdate: NoAction, map: "public_IngredientsItems_idItem_fkey")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Items {
+  idItem            BigInt              @id @default(autoincrement())
+  Name              String              @db.VarChar
+  price             Float               @db.Real
+  description       String
+  stock             BigInt
+  img               String
+  reference         String              @db.VarChar
+  quantity          BigInt?
+  uniteMasse        String?             @db.VarChar
+  brand             String?             @db.VarChar
+  nutriScore        String?             @db.VarChar
+  novaScore         BigInt?
+  ecoScore          String?             @db.VarChar
+  idType            BigInt
+  provenance        String?             @db.VarChar
+  IngredientsItems  IngredientsItems[]
+  Type              Type                @relation(fields: [idType], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "public_Items_idType_fkey")
+  ItemsCart         ItemsCart[]
+  ItemsFavorites    ItemsFavorites[]
+  ItemsHistorique   ItemsHistorique[]
+  NutritionalsItems NutritionalsItems[]
+  categoriesItems   categoriesItems[]
+  packagingItems    packagingItems[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model ItemsCart {
+  id     BigInt  @id @default(autoincrement())
+  idCart BigInt
+  idItem BigInt?
+  Cart   Cart    @relation(fields: [idCart], references: [idCart], onDelete: NoAction, onUpdate: NoAction, map: "public_ItemsCart_idCart_fkey")
+  Items  Items?  @relation(fields: [idItem], references: [idItem], onDelete: NoAction, onUpdate: NoAction, map: "public_ItemsCart_idItem_fkey")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model ItemsFavorites {
+  id         BigInt     @id @default(autoincrement())
+  idItem     BigInt
+  idFavorite BigInt?
+  Favorites  Favorites? @relation(fields: [idFavorite], references: [idFavorites], onDelete: NoAction, onUpdate: NoAction, map: "public_ItemsFavorites_idFavorite_fkey")
+  Items      Items      @relation(fields: [idItem], references: [idItem], onDelete: NoAction, onUpdate: NoAction, map: "public_ItemsFavorites_idItem_fkey")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model ItemsHistorique {
+  id           BigInt     @id @default(autoincrement())
+  idHistorique BigInt
+  idItem       BigInt?
+  Historique   Historique @relation(fields: [idHistorique], references: [idHistorique], onDelete: NoAction, onUpdate: NoAction, map: "public_ItemsHistorique_idHistorique_fkey")
+  Items        Items?     @relation(fields: [idItem], references: [idItem], onDelete: NoAction, onUpdate: NoAction, map: "public_ItemsHistorique_idItem_fkey")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Notification {
+  id      BigInt @id @default(autoincrement())
+  type    String @db.VarChar
+  content String
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model NutritionalsFor100g {
+  idNutritional     BigInt              @id @default(autoincrement())
+  Energie           String?             @db.VarChar
+  matGrass          String?             @db.VarChar
+  aciGraSat         String?             @db.VarChar
+  glucide           String?             @db.VarChar
+  sucre             String?             @db.VarChar
+  fibAlim           String?             @db.VarChar
+  proteine          String?             @db.VarChar
+  sel               String?             @db.VarChar
+  Phosphore         String?             @db.VarChar
+  calcium           String?             @db.VarChar
+  NutritionalsItems NutritionalsItems[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model NutritionalsItems {
+  id                  BigInt              @id @default(autoincrement())
+  idNutritionals      BigInt
+  idItem              BigInt
+  Items               Items               @relation(fields: [idItem], references: [idItem], onDelete: NoAction, onUpdate: NoAction, map: "public_NutritionalsItems_idItem_fkey")
+  NutritionalsFor100g NutritionalsFor100g @relation(fields: [idNutritionals], references: [idNutritional], onDelete: NoAction, onUpdate: NoAction, map: "public_NutritionalsItems_idNutritionals_fkey")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Packaging {
+  id             BigInt           @id @default(autoincrement())
+  name           String           @db.VarChar
+  packagingItems packagingItems[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Type {
+  id    BigInt  @id @default(autoincrement())
+  name  String  @db.VarChar
+  Items Items[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Users {
+  id           BigInt     @id @default(autoincrement())
+  email        String
+  passwordHash String
+  idFavorites  Int
+  idHistorique Int
+  idCart       Int
+  Cart         Cart       @relation(fields: [idCart], references: [idCart], onDelete: Cascade, onUpdate: NoAction, map: "public_Users_idCart_fkey")
+  Favorites    Favorites  @relation(fields: [idFavorites], references: [idFavorites], onDelete: Cascade, onUpdate: NoAction, map: "public_Users_idFavorites_fkey")
+  Historique   Historique @relation(fields: [idHistorique], references: [idHistorique], onDelete: Cascade, onUpdate: NoAction, map: "public_Users_idHistorique_fkey")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model categoriesItems {
+  id          BigInt     @id @default(autoincrement())
+  idItem      BigInt
+  idCategorie BigInt
+  Categories  Categories @relation(fields: [idCategorie], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "public_categoriesItems_idCategorie_fkey")
+  Items       Items      @relation(fields: [idItem], references: [idItem], onDelete: NoAction, onUpdate: NoAction, map: "public_categoriesItems_idItem_fkey")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model packagingItems {
+  id          BigInt     @id @default(autoincrement())
+  idItem      BigInt
+  idPackaging BigInt?
+  Items       Items      @relation(fields: [idItem], references: [idItem], onDelete: NoAction, onUpdate: NoAction, map: "public_packagingItems_idItem_fkey")
+  Packaging   Packaging? @relation(fields: [idPackaging], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "public_packagingItems_idPackaging_fkey")
+}
