@@ -30,7 +30,7 @@ function Signup() {
   };
 
   return (
-    <div className='min-h-screen bg-gray-100 flex flex-col justify-center'>
+    <div className='min-h-screen flex flex-col mt-7'>
       <div className='max-w-md w-full mx-auto'>
         <div className='flex items-center justify-center'>
           <Image
@@ -42,7 +42,7 @@ function Signup() {
           />
         </div>
 
-        <h2 className='mt-6 mb-2 text-center text-3xl font-extrabold text-gray-900'>Register</h2>
+        <h2 className='mt-32 mb-2 text-center text-3xl font-extrabold text-gray-900'>Register</h2>
         <p className='text-center text-gray-600 mb-6'>Welcome. Enter your credentials to access your account</p>
 
         <form className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4' onSubmit={handleSubmit}>
