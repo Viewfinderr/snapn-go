@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react';
-import Register from "@/Components/formRegister";
+import Register from "@/Components/register";
 
 // Définir la fonction de composant de page
 const Page = () => {

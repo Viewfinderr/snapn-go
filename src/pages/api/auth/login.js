@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { PrismaClient } from '@prisma/client';
+import { serialize } from 'cookie'; // Importer la fonction serialize de la bibliothèque cookie
 
 const prisma = new PrismaClient();
 
@@ -42,8 +43,19 @@ export default async function handler(req, res) {
         { expiresIn: '2h' }
       );
 
+      // Définir le cookie sécurisé contenant le JWT
+      const cookieOptions = {
+        httpOnly: true, // Empêche l'accès au cookie via JavaScript
+        secure: true, // Nécessite une connexion HTTPS
+        sameSite: 'strict', // Protection contre les attaques CSRF
+        maxAge: 2 * 60 * 60, // Durée de validité du cookie en secondes (2 heures dans ce cas)
+        path: '/', // Chemin du cookie (racine dans ce cas)
+      };
+
+      res.setHeader('Set-Cookie', serialize('jwtToken', token, cookieOptions));
+
       console.log('Connexion réussie pour l\'utilisateur avec l\'adresse email :', user.email);
-      res.status(200).json({ message: 'Connexion réussie!', token });
+      res.status(200).json({ message: 'Connexion réussie!' });
     } catch (error) {
       console.log('Erreur lors de la tentative de connexion :', error);
       res.status(500).json({ error: 'Quelque chose a mal tourné.' });

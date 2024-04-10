@@ -9,9 +9,8 @@ datasource db {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model Cart {
-  idCart    Int         @id @default(autoincrement())
+  idCart    BigInt      @id @default(autoincrement())
   ItemsCart ItemsCart[]
-  Users     Users[]
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
@@ -23,14 +22,14 @@ model Categories {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model Favorites {
-  idFavorites    Int              @id @default(autoincrement())
+  idFavorites    BigInt           @id @default(autoincrement())
   ItemsFavorites ItemsFavorites[]
   Users          Users[]
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model Historique {
-  idHistorique    Int               @id @default(autoincrement())
+  idHistorique    BigInt            @id @default(autoincrement())
   ItemsHistorique ItemsHistorique[]
   Users           Users[]
 }
@@ -156,10 +155,9 @@ model Users {
   id           BigInt     @id @default(autoincrement())
   email        String
   passwordHash String
-  idFavorites  Int
-  idHistorique Int
-  idCart       Int
-  Cart         Cart       @relation(fields: [idCart], references: [idCart], onDelete: Cascade, onUpdate: NoAction, map: "public_Users_idCart_fkey")
+  idFavorites  BigInt
+  idHistorique BigInt
+  idCart       BigInt
   Favorites    Favorites  @relation(fields: [idFavorites], references: [idFavorites], onDelete: Cascade, onUpdate: NoAction, map: "public_Users_idFavorites_fkey")
   Historique   Historique @relation(fields: [idHistorique], references: [idHistorique], onDelete: Cascade, onUpdate: NoAction, map: "public_Users_idHistorique_fkey")
 }
