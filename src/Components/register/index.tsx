@@ -42,12 +42,12 @@ function Signup() {
           />
         </div>
 
-        <h2 className='mt-32 mb-2 text-center text-3xl font-extrabold text-gray-900'>Register</h2>
-        <p className='text-center text-gray-600 mb-6'>Welcome. Enter your credentials to access your account</p>
+        <h2 className='mt-20 mb-2 ml-6  text-3xl font-extrabold text-gray-900'>Register</h2>
+        <p className='mx-6 text-gray-600 mb-6'>Welcome. Enter your credentials to access your account</p>
 
-        <form className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4' onSubmit={handleSubmit}>
+        <form className='px-6 pt-6 pb-8 mb-4' onSubmit={handleSubmit}>
           <div className='mb-4'>
-            <label htmlFor="email" className='block text-gray-700 text-sm font-bold mb-2'>Email Address</label>
+            <label htmlFor="email" className='block text-sm font-bold mb-2'>Email Address</label>
             <input
               type="email"
               id="email"
@@ -55,7 +55,7 @@ function Signup() {
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder='hello@example.com'
-              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              className=' border border-[1px] border-black rounded w-full py-2 px-3 text-gray-700'
             />
           </div>
           <div className='mb-6'>
