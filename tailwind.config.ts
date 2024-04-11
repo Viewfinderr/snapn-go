@@ -8,14 +8,14 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      fontFamily:{
-        'custom': ['Montserrat', 'sans-serif'],
+      fontFamily: {
+        custom: ["Montserrat", "sans-serif"],
       },
-      colors:{
-        'grayBorder': '#64748B',
-        'greenButton': '#174F2C',
-        'greenNav':'#A0C92C',
-      }
+      colors: {
+        grayBorder: "#D0D5DD",
+        greenButton: "#174F2C",
+        greenNav: "#A0C92C",
+      },
     },
   },
   plugins: [],
