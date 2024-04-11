@@ -1,14 +1,14 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 
 function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage('');
 
     try {
       const response = await fetch('/api/auth/signup', {
@@ -23,14 +23,13 @@ function Signup() {
       if (!response.ok) {
         throw new Error(data.error || 'Quelque chose a mal tourné');
       }
-      setMessage("Félicitations!");
     } catch (error) {
-      setMessage(error.toString());
+      console.log(error)
     }
   };
 
   return (
-    <div className='min-h-screen flex flex-col mt-7'>
+    <div className=' flex flex-col mt-7'>
       <div className='max-w-md w-full mx-auto'>
         <div className='flex items-center justify-center'>
           <Image
@@ -42,12 +41,12 @@ function Signup() {
           />
         </div>
 
-        <h2 className='mt-20 mb-2 ml-6  text-3xl font-extrabold text-gray-900'>Register</h2>
-        <p className='mx-6 text-gray-600 mb-6'>Welcome. Enter your credentials to access your account</p>
+        <h2 className='mt-20 mb-2 ml-6  text-3xl font-custom font-bold '>Register</h2>
+        <p className='mx-6 text-gray-600 mb-6 font-custom font-regular'>Welcome. Enter your credentials to access your account</p>
 
         <form className='px-6 pt-6 pb-8 mb-4' onSubmit={handleSubmit}>
           <div className='mb-4'>
-            <label htmlFor="email" className='block text-sm font-bold mb-2'>Email Address</label>
+            <label htmlFor="email" className='block text-sm mb-2 font-custom font-semibold'>Email Address</label>
             <input
               type="email"
               id="email"
@@ -55,11 +54,11 @@ function Signup() {
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder='hello@example.com'
-              className=' border border-[1px] border-black rounded w-full py-2 px-3 text-gray-700'
+              className='font-custom font-regular border border-[1.5px] border-grayBorder rounded w-full py-2 px-3 text-gray-700'
             />
           </div>
           <div className='mb-6'>
-            <label htmlFor="password" className='block text-gray-700 text-sm font-bold mb-2'>Password</label>
+            <label htmlFor="password" className='block text-sm mb-2 font-custom font-semibold'>Password</label>
             <input
               type="password"
               id="password"
@@ -67,25 +66,27 @@ function Signup() {
               onChange={(e) => setPassword(e.target.value)}
               required
               placeholder='Enter password'
-              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
+              className='font-custom font-regular border border-[1.5px] border-grayBorder rounded w-full py-2 px-3 text-gray-700'
             />
           </div>
-          <div className='mb-6'>
+          <div className='mb-6 flex'>
             <input type="checkbox" id="remember" className='mr-2 leading-tight'/>
-            <label htmlFor="remember" className='block text-gray-700 text-sm font-bold'>
+            <label htmlFor="remember" className='block text-sm font-custom font-regular'>
               Keep me signed in
             </label>
           </div>
-          <div className='flex items-center justify-between'>
-            <button type="submit" className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'>
+          <div className='flex flex-col items-center justify-between'>
+            <button type="submit" className='bg-greenButton text-white py-2 px-6 w-full rounded font-custom font-semibold'>
               Continue
             </button>
-            <a href="#" className='inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800'>
+            <div className='flex justify-center items-center mt-4 font-custom font-regular'>
+              <p>Don’t have an Account? </p>
+            <Link href="/login" className='inline-block align-baseline underline decoration-solid text-sm text-greenButton font-custom font-bold ml-1'>
               Login here
-            </a>
+            </Link>
+            </div>
           </div>
         </form>
-        {message && <p className='text-center text-red-500 text-xs'>{message}</p>}
       </div>
     </div>
   );

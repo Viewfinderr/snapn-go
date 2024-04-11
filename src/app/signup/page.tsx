@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react';
+import Navbar from '@/Components/navbar';
 import Register from "@/Components/register";
 
 // Définir la fonction de composant de page
@@ -8,6 +8,7 @@ const Page = () => {
   return (
     <div>
       <Register></Register>
+      <Navbar></Navbar>
     </div>
   );
 };

@@ -1,13 +1,14 @@
 'use client'
 
-import React from 'react';
 import Login from "@/Components/login";
+import Navbar from '@/Components/navbar';
 
 // Définir la fonction de composant de page
 const Page = () => {
   return (
     <div>
       <Login></Login>
+      <Navbar></Navbar>
     </div>
   );
 };

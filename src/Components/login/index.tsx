@@ -1,3 +1,5 @@
+import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 
 function Login() {
@@ -32,32 +34,68 @@ function Login() {
   };
 
   return (
-    <div>
-      <h2>Connexion</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email :</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
+    <div className=' flex flex-col mt-7'>
+      <div className='max-w-md w-full mx-auto'>
+        <div className='flex items-center justify-center'>
+          <Image
+            src="/Icon.svg"
+            width={58}
+            height={58}
+            alt='Icon site web'
+            className='mb-4'
+          />
+        </div>
+
+        <h2 className='mt-20 mb-2 ml-6  text-3xl font-custom font-bold '>Login</h2>
+        <p className='mx-6 text-gray-600 mb-2 font-custom font-regular'>Welcome back. Enter your credentials to access your account</p>
+
+        <form className='px-6 pt-6 pb-8 mb-4' onSubmit={handleSubmit}>
+          <div className='mb-4'>
+            <label htmlFor="email" className='block text-sm mb-2 font-custom font-semibold'>Email Address</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Mot de passe :</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
+              required
+              placeholder='hello@example.com'
+              className='font-custom font-regular border border-[1.5px] border-grayBorder rounded w-full py-2 px-3 text-gray-700'
+            />
+          </div>
+          <div className='mb-6'>
+            <div className='flex justify-between'>
+            <label htmlFor="password" className='block text-sm mb-2 font-custom font-semibold'>Password</label>
+            <Link href="#" className='text-xs text-greenButton font-custom font-bold'>Forgot Password</Link>
+            </div>
+            <input
+              type="password"
+              id="password"
+              value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Se connecter</button>
-      </form>
-      {message && <p>{message}</p>}
+              required
+              placeholder='Enter password'
+              className='font-custom font-regular border border-[1.5px] border-grayBorder rounded w-full py-2 px-3 text-gray-700'
+            />
+          </div>
+          <div className='mb-6 flex'>
+            <input type="checkbox" id="remember" className='mr-2 leading-tight'/>
+            <label htmlFor="remember" className='block text-sm font-custom font-regular'>
+              Keep me signed in
+            </label>
+          </div>
+          <div className='flex flex-col items-center justify-between'>
+            <button type="submit" className='bg-greenButton text-white py-2 px-6 w-full rounded font-custom font-semibold'>
+              Continue
+            </button>
+            <div className='flex justify-center items-center mt-4 font-custom font-regular'>
+              <p>Don’t have an Account?  </p>
+            <Link href="/login" className='inline-block align-baseline underline decoration-solid text-sm text-greenButton font-custom font-bold ml-1'>
+            Sign up here
+            </Link>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
