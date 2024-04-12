@@ -1,21 +1,15 @@
-'use client'
 
 import Navbar from '@/Components/navbar';
-import Link from "next/link";
+import FoodSlider from '@/Components/FoodSlider';
+import Items from '@/Components/Items'
 
-export default function Home() {
-
-
+export default function Home() { 
   return (
     <div>
-       <Link href="/login">
-            <p>Login</p>
-          </Link>
-       <Link href="/signup">
-            <p>signup</p>
-          </Link>
-          
-          <Navbar></Navbar>
+     <FoodSlider/>
+      <Items/>
+      <Navbar/>
     </div>
   );
 }
+

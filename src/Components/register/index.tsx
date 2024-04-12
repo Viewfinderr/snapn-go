@@ -48,6 +48,7 @@ function Signup() {
             height={58}
             alt="Icon site web"
             className="mb-4"
+            loading="lazy"
           />
         </div>
         <ToastContainer />

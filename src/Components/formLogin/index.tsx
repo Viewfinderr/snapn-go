@@ -26,7 +26,7 @@ function Login() {
       }
       setMessage("Connexion réussie!");
 
-      window.location.href = "/";
+      // window.location.href = "/";
     } catch (error) {
       setMessage(error.toString());
     }
@@ -55,6 +55,7 @@ function Login() {
             height={58}
             alt="Icon site web"
             className="mb-4"
+            loading="lazy"
           />
         </div>
 

@@ -1,6 +1,6 @@
 'use client'
 
-import Login from "@/Components/login";
+import Login from "@/Components/formLogin";
 import Navbar from '@/Components/navbar';
 
 // Définir la fonction de composant de page

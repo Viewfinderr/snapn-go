@@ -12,6 +12,7 @@ function ServiceRegister() {
             height={58}
             alt="Icon site web"
             className="mb-4"
+            loading="lazy"
           />
         </div>
         <h2 className="mt-20 mb-2 ml-6  text-3xl font-custom font-bold ">

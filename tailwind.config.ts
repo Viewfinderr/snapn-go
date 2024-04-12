@@ -8,6 +8,11 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
       fontFamily: {
         custom: ["Montserrat", "sans-serif"],
       },
@@ -15,6 +20,8 @@ const config: Config = {
         grayBorder: "#D0D5DD",
         greenButton: "#174F2C",
         greenNav: "#A0C92C",
+        fontDesktop: "#FFC130",
+        bgSliderDesktop: "#A0C92C"
       },
     },
   },
