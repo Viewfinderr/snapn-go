@@ -16,7 +16,7 @@ Pour configurer le projet localement, suivez ces étapes :
 1. Clonez le dépôt GitHub :
 
 ```bash
-git clone -b origin [branch] https://github.com/Viewfinderr/snapn-go.git
+git clone -b [branch] https://github.com/Viewfinderr/snapn-go.git
 cd snapngo
 ```
 
