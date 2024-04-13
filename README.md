@@ -39,7 +39,7 @@ yarn
 Copiez le fichier .env.example en .env et ajustez les variables selon votre environnement de développement :
 
 ```bash
-cp .env.example .env
+cp .env.exemple .env
 ```
 
 ## Démarrage du projet
