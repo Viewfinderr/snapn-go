@@ -9,6 +9,7 @@ const Page = () => {
     <div>
       <Login></Login>
       <Navbar></Navbar>
+      
     </div>
   );
 };

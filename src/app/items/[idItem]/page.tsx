@@ -2,6 +2,7 @@
 // Supposons ici qu'il est défini dans "@prisma/client".
 import { Items } from "@prisma/client"; // Ajustez le nom d'importation selon votre schéma Prisma.
 import { getOneItem } from "@/pages/api/getOneItem";
+import Navbar from '@/Components/navbar';
 
 interface OneItemProps {
   params: {
@@ -29,6 +30,7 @@ export default async function OneItem({ params }: OneItemProps) {
           <h2 className="text-lg font-bold">{items.Name}</h2>
           <p className="text-md">{items.price} €</p>
       </div>
+      <Navbar></Navbar>
     </div>
   );
 }
