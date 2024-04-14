@@ -1,70 +1,52 @@
-// pages/cart.tsx
-'use client'
+// page.tsx
+"use client"
 import React, { useEffect, useState } from 'react';
-import  Items  from '@/components/Items';
 
-interface CartItem {
-    idItem: number; // Supposons que les ID peuvent être représentés comme des nombres
-    Name: string;
-    price: number;
-    img: string;
-    quantity: number; // La quantité sera gérée comme un nombre côté client
-    // Ajoutez d'autres propriétés de l'objet Items si nécessaire
-  }
-  
-  const CartPage: React.FC = () => {
-    const [cartItems, setCartItems] = useState<CartItem[]>([]);
-    const [total, setTotal] = useState<number>(0);
-  
+const CartPage = () => {
+    const [cartItems, setCartItems] = useState([]);
+    const [error, setError] = useState(''); 
+
     useEffect(() => {
-      // Lire les items du panier à partir de localStorage et les convertir si nécessaire
-      const items = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')!) : [];
-      const convertedItems: CartItem[] = items.map((item: any) => ({
-        ...item,
-        idItem: Number(item.idItem), // Convertir bigint à number si nécessaire
-        quantity: Number(item.quantity) || 1, // Assurez-vous que la quantité est un nombre et par défaut à 1 si non défini
-      }));
-      setCartItems(convertedItems);
-  
-      // Calculer le prix total
-      const totalPrice = convertedItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-      setTotal(totalPrice);
+        fetch('/api/getcart')
+            .then(response => response.json())
+            .then(data => {
+                if (data && Array.isArray(data.ItemsCart)) {
+                    const itemIds = data.ItemsCart.map(item => item.idItem);
+                    // Utiliser la requête modifiée pour obtenir les détails des articles
+                    fetch(`/api/getMultipleItems?ids=${itemIds.join(',')}`)
+                        .then(response => response.json())
+                        .then(itemsData => {
+                            setCartItems(itemsData);
+                        })
+                        .catch(error => {
+                            console.error('Erreur lors de la récupération des détails des articles:', error);
+                            setError('Une erreur est survenue lors de la récupération des détails des articles.');
+                        });
+                } else {
+                    console.error('Les données attendues ne sont pas un tableau:', data);
+                    setError('Une erreur est survenue lors de la récupération de votre panier.');
+                }
+            })
+            .catch(error => {
+                console.error('Erreur lors de la récupération du panier:', error);
+                setError('Impossible de récupérer le panier. Veuillez réessayer plus tard.');
+            });
     }, []);
-  
-    // Fonction pour retirer un article du panier
-    const removeFromCart = (idItemToRemove: number) => {
-      const updatedCart = cartItems.filter(item => item.idItem !== idItemToRemove);
-      setCartItems(updatedCart);
-      localStorage.setItem('cart', JSON.stringify(updatedCart));
-      setTotal(updatedCart.reduce((acc, item) => acc + (item.price * item.quantity), 0));
-    };
-  
+
     return (
-      <div>
+        <div>
         <h1>Votre Panier</h1>
-        <ul>
-          {cartItems.map((item, index) => (
-            <li key={index}>
-              <div className="item-container">
-                <img src={item.img} alt={item.Name} />
-                <div>
-                   
-                  <h3>{item.Name}</h3>
-                  <p>{item.price} €</p>
-                  <p>Quantité: {item.quantity}</p>
-                </div>
-                <button onClick={() => removeFromCart(item.idItem)}>Supprimer</button>
-              </div>
-            </li>
-          ))}
-        </ul>
-        <div className="total-container">
-          <p>Total: {total.toFixed(2)} €</p>
-        </div>
-        {/* Vous pouvez ajouter ici des boutons ou des liens pour la caisse ou pour continuer les achats. */}
-      </div>
+        {error ? (
+            <p>{error}</p>
+        ) : (
+            <ul>
+                {cartItems.map((item, index) => (
+                    <li key={`${item.id}-${index}`}>{item.Name} - Quantité : {item.quantity}</li>
+                ))}
+            </ul>
+        )}
+    </div>
     );
-  };
-  
-  export default CartPage;
-  
+};
+
+export default CartPage;
