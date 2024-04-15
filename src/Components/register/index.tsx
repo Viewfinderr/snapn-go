@@ -122,7 +122,7 @@ function Signup() {
             <div className="flex justify-center items-center mt-4 font-custom font-regular">
               <p>Don’t have an Account? </p>
               <Link
-                href="/login"
+                href="/Login"
                 className="inline-block align-baseline underline decoration-solid text-sm text-greenButton font-custom font-bold ml-1"
               >
                 Login here
