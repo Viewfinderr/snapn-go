@@ -33,15 +33,16 @@ export default async function handler(
     });
 
     // Calculer la quantité pour chaque ID d'article
-    const quantityMap = idArray.reduce((acc, id) => {
-      acc[id] = (acc[id] || 0) + 1;
+    const quantityMap = idArray.reduce((acc: any, id) => {
+      const key = id.toString(); // Convertissez l'ID en chaîne pour l'utiliser comme clé
+      acc[key] = (acc[key] || 0) + 1;
       return acc;
     }, {});
 
     // Ajouter la quantité calculée à chaque article
     const itemsWithQuantities = items.map((item) => ({
       ...item,
-      quantity: quantityMap[item.idItem] || 0,
+      quantity: quantityMap[item.idItem.toString()] || 0, // Assurez-vous de convertir idItem en chaîne ici aussi
     }));
 
     // Convertir les BigInt en chaînes pour la sérialisation JSON

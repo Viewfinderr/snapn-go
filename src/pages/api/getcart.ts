@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
-import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
+import { NextApiRequest, NextApiResponse } from "next";
 
 const prisma = new PrismaClient();
 
@@ -13,9 +13,14 @@ export default async function handler(
   if (!token) {
     return res.status(401).json({ error: "Authentication required" });
   }
-
+  const secret = process.env.JWT_SECRET as string;
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET); // Afficher le contenu décodé du JWT
+    const decoded = jwt.verify(token, secret); // Afficher le contenu décodé du JWT
+
+    if (typeof decoded === "string" || !decoded.idCart) {
+      console.error("Invalid token data:", decoded); // Débogage en cas de données de token non valides
+      return res.status(400).json({ error: "Invalid token data" });
+    }
 
     const cartId = Number(decoded.idCart); // Conversion de l'ID du panier en nombre// Afficher l'ID du panier pour vérifier
 

@@ -17,16 +17,22 @@ export default async function handler(
         .json({ error: "You must be logged in to add items to cart." });
     }
 
+    const secret = process.env.JWT_SECRET;
+    if (!secret) {
+      console.error("JWT_SECRET is not defined.");
+      return res.status(500).json({ error: "Server configuration error." });
+    }
+
     let decoded;
     try {
-      decoded = jwt.verify(token, process.env.JWT_SECRET);
+      decoded = jwt.verify(token, secret); // Utilisation de la variable 'secret'
     } catch (error) {
       console.error("Failed to decode or verify JWT:", error);
       return res.status(401).json({ error: "Invalid token." });
     }
 
     const { itemId } = req.body;
-    const { idCart } = decoded;
+    const { idCart } = decoded as any;
 
     try {
       const newItemInCart = await prisma.itemsCart.create({

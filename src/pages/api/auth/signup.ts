@@ -1,12 +1,20 @@
-import { PrismaClient } from '@prisma/client';
-import { NextApiRequest, NextApiResponse } from 'next';
-import bcrypt from 'bcrypt';
+import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcrypt";
+import { CookieSerializeOptions, serialize } from "cookie";
+import jwt from "jsonwebtoken";
+import { NextApiRequest, NextApiResponse } from "next";
 
 const prisma = new PrismaClient();
 
+// Fonction pour convertir les valeurs BigInt en chaînes pour la compatibilité JSON
+function convertBigInt(user: any) {
+  return JSON.stringify(user, (key, value) =>
+    typeof value === "bigint" ? value.toString() : value
+  );
+}
+
 const createUser = async (email: string, password: string) => {
   try {
-    // Vérifier si l'utilisateur existe déjà dans la base de données
     const existingUser = await prisma.users.findFirst({
       where: {
         email: email,
@@ -14,85 +22,66 @@ const createUser = async (email: string, password: string) => {
     });
 
     if (existingUser) {
-      throw new Error('User already exists');
+      throw new Error("User already exists");
     }
 
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(password, salt);
 
-    console.log('Creating user...');
-
-    // Créer les entités nécessaires avant de créer l'utilisateur
-    const favorites = await prisma.favorites.create({
-      data: {},
-    });
-
-    console.log('Favorites created:', favorites);
-
-    const historique = await prisma.historique.create({
-      data: {},
-    });
-
-    console.log('Historique created:', historique);
-
-    const cart = await prisma.cart.create({
-      data: {},
-    });
-
-    console.log('Cart created:', cart);
+    const favorites = await prisma.favorites.create({ data: {} });
+    const historique = await prisma.historique.create({ data: {} });
+    const cart = await prisma.cart.create({ data: {} });
 
     return prisma.users.create({
       data: {
         email,
         passwordHash,
-        idFavorites: favorites.idFavorites, // Assurez-vous que ces champs correspondent aux champs réels dans votre modèle Prisma
+        idFavorites: favorites.idFavorites,
         idHistorique: historique.idHistorique,
         idCart: cart.idCart,
       },
     });
   } catch (error) {
-    if (error.message === 'User already exists') {
-      throw error; // Renvoyer explicitement l'erreur utilisateur existante
-    }
-    console.error('Error creating user:', error);
-    throw new Error('Failed to create user');
+    console.error("Error creating user:", error);
+    throw new Error("Failed to create user");
   }
 };
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'POST') {
-    try {
-      const { email, password } = req.body;
-      if (!email || !password) {
-        throw new Error('Email and password are required');
-      }
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  if (req.method === "POST") {
+    const { email, password } = req.body;
 
-      console.log('Creating new user with email:', email);
-
-      // Créer un nouvel utilisateur seulement s'il n'existe pas déjà
-      const newUser = await createUser(email, password);
-
-      console.log('New user created:', newUser);
-
-      // Utiliser JSON.stringify avec un réviseur pour convertir BigInt en chaînes
-      const userJson = JSON.stringify(newUser, (key, value) =>
-        typeof value === 'bigint' ? value.toString() : value
-      );
-
-      res.setHeader('Content-Type', 'application/json');
-      res.status(201).end(userJson);
-      console.log('User created');
-    } catch (error) {
-      if (error.message === 'User already exists') {
-        res.status(400).json({ error: 'User already exists' });
-      } else {
-        console.error('Error processing POST request:', error);
-        res.status(500).json({ error: 'Failed to create user' });
-      }
+    if (!email || !password) {
+      throw new Error("Email and password are required");
     }
+
+    const newUser = await createUser(email, password);
+    const secret = process.env.JWT_SECRET as string;
+    const token = jwt.sign(
+      { userId: newUser.id.toString(), email: newUser.email },
+      secret,
+      { expiresIn: "2h" }
+    );
+
+    const cookieOptions: CookieSerializeOptions = {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+      maxAge: 7200,
+      path: "/",
+    };
+
+    res.setHeader("Set-Cookie", serialize("jwtToken", token, cookieOptions));
+    const userJson = convertBigInt(newUser);
+    res.status(201).json({
+      message: "User created and logged in",
+      user: JSON.parse(userJson),
+    });
   } else {
-    console.warn(`Method ${req.method} not allowed`);
-    res.setHeader('Allow', ['POST']);
-    res.status(405).end(`Method ${req.method} not allowed`);
+    res.setHeader("Allow", ["POST"]);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }

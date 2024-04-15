@@ -1,7 +1,6 @@
-// page.tsx
 "use client";
 import Navbar from "@/Components/navbar";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -13,7 +12,6 @@ const CartPage = () => {
       .then((data) => {
         if (data && Array.isArray(data.ItemsCart)) {
           const itemIds = data.ItemsCart.map((item) => item.idItem);
-          // Utiliser la requête modifiée pour obtenir les détails des articles
           fetch(`/api/getMultipleItems?ids=${itemIds.join(",")}`)
             .then((response) => response.json())
             .then((itemsData) => {
@@ -43,6 +41,12 @@ const CartPage = () => {
       });
   }, []);
 
+  useEffect(() => {
+    if (error) {
+      // Gérer l'erreur ici (par exemple, journalisation, rapport d'erreurs, etc.)
+    }
+  }, [error]);
+
   return (
     <div>
       <h1>Votre Panier</h1>
@@ -50,14 +54,18 @@ const CartPage = () => {
         <p>{error}</p>
       ) : (
         <ul>
-          {cartItems.map((item, index) => (
-            <li key={`${item.id}-${index}`}>
-              {item.Name} - Quantité : {item.quantity}
-            </li>
-          ))}
+          {Array.isArray(cartItems) && cartItems.length > 0 ? (
+            cartItems.map((item, index) => (
+              <li key={`${item.id}-${index}`}>
+                {item.Name} - Quantité : {item.quantity}
+              </li>
+            ))
+          ) : (
+            <p>Votre panier est vide.</p>
+          )}
         </ul>
       )}
-      <Navbar></Navbar>
+      <Navbar />
     </div>
   );
 };

@@ -1,15 +1,13 @@
+import FoodSlider from "@/Components/FoodSlider";
+import Items from "@/Components/Items";
+import Navbar from "@/Components/navbar";
 
-import Navbar from '@/Components/navbar';
-import FoodSlider from '@/Components/FoodSlider';
-import Items from '@/Components/Items'
-
-export default function Home() { 
+export default function Home() {
   return (
-    <div>
-     <FoodSlider/>
-      <Items/>
-      <Navbar/>
-    </div>
+    <main>
+      <FoodSlider />
+      <Items />
+      <Navbar />
+    </main>
   );
 }
-

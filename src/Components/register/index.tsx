@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -7,8 +8,9 @@ import "react-toastify/dist/ReactToastify.css";
 function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     try {
@@ -33,6 +35,9 @@ function Signup() {
         draggable: true,
         progress: undefined,
       });
+      setTimeout(() => {
+        router.push("/");
+      }, 2000);
     } catch (error) {
       console.log(error);
     }
@@ -74,7 +79,7 @@ function Signup() {
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="hello@example.com"
-              className="font-custom font-regular border border-[1.5px] border-grayBorder rounded w-full py-2 px-3 text-gray-700"
+              className="font-custom font-regular border-[1.5px] border-grayBorder rounded w-full py-2 px-3 text-gray-700"
             />
           </div>
           <div className="mb-6">
@@ -91,7 +96,7 @@ function Signup() {
               onChange={(e) => setPassword(e.target.value)}
               required
               placeholder="Enter password"
-              className="font-custom font-regular border border-[1.5px] border-grayBorder rounded w-full py-2 px-3 text-gray-700"
+              className="font-custom font-regular border-[1.5px] border-grayBorder rounded w-full py-2 px-3 text-gray-700"
             />
           </div>
           <div className="mb-6 flex">
@@ -117,7 +122,7 @@ function Signup() {
             <div className="flex justify-center items-center mt-4 font-custom font-regular">
               <p>Don’t have an Account? </p>
               <Link
-                href="/Login"
+                href="/login"
                 className="inline-block align-baseline underline decoration-solid text-sm text-greenButton font-custom font-bold ml-1"
               >
                 Login here
