@@ -100,9 +100,8 @@ const Items: React.FC = () => {
     <div className="bg-greenButton lg:bg-fontDesktop px-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 ">
         {items.map((item) => ( 
-          // Todo: Faire en sorte que le link ne se face pas quand on clique sur la card !
-          <Link key={item.idItem} href={`/items/${item.idItem}`} passHref>  
-            <div className="p-2">
+          <div key={item.idItem} className="p-2">
+            <Link href={`/items/${item.idItem}`} passHref>  
               <div className="rounded-[6px] overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out ">
                 <div className="relative">
                   <img src={item.img} alt={item.Name} className="w-full object-contain " />
@@ -111,16 +110,22 @@ const Items: React.FC = () => {
                 <div className="p-4 bg-white text-center">
                   <h2 className="font-bold text-lg mb-2">{item.Name}</h2>
                   <p className="text-gray-800 text-md mb-4">{item.price.toFixed(2)} €</p>
-                  <button onClick={() => addToCart(item)} className="mt-2 bg-blue-500 text-white p-2 rounded">
-            Ajouter au panier
-          </button>                </div>
+                </div>
               </div>
+            </Link>
+            <div className="text-center">
+              <button onClick={() => addToCart(item)} className="mt-2 bg-blue-500 text-white p-2 rounded">
+                Ajouter au panier
+              </button>
             </div>
-          </Link>
+          </div>
         ))}
       </div>
     </div>
   );
+  
+  
+  
 };
 
 export default Items;
