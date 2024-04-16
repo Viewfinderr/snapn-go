@@ -20,7 +20,7 @@ const config: Config = {
         grayBorder: "#D0D5DD",
         greenButton: "#174F2C",
         greenNav: "#A0C92C",
-        fontDesktop: "#FFC130",
+        fontDesktop: "#FFC130 ",
         bgSliderDesktop: "#A0C92C"
       },
     },
