@@ -1,3 +1,5 @@
+// api/auth.ts
+
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
@@ -7,12 +9,14 @@ export default async function handler(
 ) {
   if (req.method === "GET") {
     try {
+      // Récupérer le cookie jwtToken de la requête
       const token = req.cookies.jwtToken;
 
       // Vérifier si le cookie jwtToken est présent dans la requête
       if (!token) {
-        // Plutôt que de renvoyer une erreur, renvoyez un statut neutre
-        return res.status(200).json({ message: "Utilisateur non connecté." });
+        return res
+          .status(401)
+          .json({ message: "Accès non autorisé. Aucun token trouvé." });
       }
 
       // Vérifier le token JWT
