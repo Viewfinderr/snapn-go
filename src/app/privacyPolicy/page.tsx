@@ -1,12 +1,11 @@
-import React from "react";
+import Navbar from "@/Components/navbar";
 import PrivacyPolicy from "@/Components/privacyPolicy";
-// import BackButton from "@/Components/BackButton";
 
 const App = () => {
   return (
     <div>
-      {/* <BackButton /> */}
       <PrivacyPolicy />
+      <Navbar />
     </div>
   );
 };

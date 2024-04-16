@@ -1,12 +1,11 @@
-import React from "react";
 import LegalNotice from "@/Components/legalNotice";
-// import BackButton from "@/Components/BackButton";
+import Navbar from "@/Components/navbar";
 
 const App = () => {
   return (
     <div>
-      {/* <BackButton /> */}
       <LegalNotice />
+      <Navbar />
     </div>
   );
 };

@@ -34,6 +34,16 @@ const MenuComponent = () => {
             </div>
           </Link>
         </div>
+        <Link href="/privacyPolicy">
+          <div className="border-2 border-gray-300 px-6 py-2 text-lg text-center rounded-md shadow-sm hover:bg-gray-100 cursor-pointer transition-all duration-300">
+            Privacy Policy
+          </div>
+        </Link>
+        <Link href="/legalNotice">
+          <div className="border-2 border-gray-300 px-6 py-2 text-lg text-center rounded-md shadow-sm hover:bg-gray-100 cursor-pointer transition-all duration-300">
+            Legal Notice
+          </div>
+        </Link>
         <Link href="/newsletter">
           <div className="border-2 border-gray-300 p-2 text-lg text-center rounded-md shadow-sm hover:bg-gray-100 cursor-pointer transition-all duration-300">
             Newsletter
