@@ -1,6 +1,6 @@
 // components/ContactComponent.js
 
-const ContactComponent = () => {
+const Contact = () => {
     return (
       <div className="bg-white text-black px-4 py-8">
         <h1 className="text-4xl font-bold mb-16">Contact</h1>
@@ -30,5 +30,5 @@ const ContactComponent = () => {
     );
   };
   
-  export default ContactComponent;
+  export default Contact;
   
