@@ -1,5 +1,7 @@
+"use client";
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Account() {
   const [newEmail, setNewEmail] = useState("");
@@ -8,6 +10,7 @@ export default function Account() {
   const [showPasswordInput, setShowPasswordInput] = useState(false);
   const [error, setError] = useState("");
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const router = useRouter();
 
   const handleChangeEmail = async () => {
     try {
@@ -78,12 +81,37 @@ export default function Account() {
 
       if (response.ok) {
         console.log("Account deleted successfully");
+        try {
+          await fetch("/api/auth/logout", {
+            method: "POST",
+          });
+          // Effacer le token JWT stocké en supprimant le cookie
+          document.cookie =
+            "jwtToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+        } catch (error) {
+          console.error("Erreur lors de la déconnexion :", error);
+        }
         // Rediriger l'utilisateur vers la page de déconnexion ou la page d'accueil
+        router.push("/");
       } else {
         console.error("Error deleting account. Status:", response.status);
       }
     } catch (error) {
       console.error("Error:", error);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/auth/logout", {
+        method: "POST",
+      });
+      // Effacer le token JWT stocké en supprimant le cookie
+      document.cookie =
+        "jwtToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+      router.push("/");
+    } catch (error) {
+      console.error("Erreur lors de la déconnexion :", error);
     }
   };
 
@@ -234,6 +262,12 @@ export default function Account() {
               Delete account
             </button>
           )}
+          <button
+            onClick={handleLogout}
+            className="text-red-500 font-semibold hover:text-red-700"
+          >
+            Se déconnecter
+          </button>
         </div>
       </div>
     </>

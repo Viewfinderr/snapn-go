@@ -11,6 +11,7 @@ datasource db {
 model Cart {
   idCart    BigInt      @id @default(autoincrement())
   ItemsCart ItemsCart[]
+  Users     Users[]
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
@@ -158,6 +159,7 @@ model Users {
   idFavorites  BigInt
   idHistorique BigInt
   idCart       BigInt
+  Cart         Cart       @relation(fields: [idCart], references: [idCart], onDelete: NoAction, onUpdate: NoAction, map: "public_Users_idCart_fkey")
   Favorites    Favorites  @relation(fields: [idFavorites], references: [idFavorites], onDelete: Cascade, onUpdate: NoAction, map: "public_Users_idFavorites_fkey")
   Historique   Historique @relation(fields: [idHistorique], references: [idHistorique], onDelete: Cascade, onUpdate: NoAction, map: "public_Users_idHistorique_fkey")
 }

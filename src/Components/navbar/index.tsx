@@ -1,8 +1,28 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Navbar: React.FC = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        const response = await fetch("/api/auth/verifAuth");
+        if (response.ok) {
+          setIsLoggedIn(true);
+        }
+      } catch (error) {
+        console.error(
+          "Erreur lors de la vérification du statut de connexion : ",
+          error
+        );
+      }
+    };
+
+    checkLoginStatus();
+  }, []);
   return (
     <div>
       <div></div>
@@ -21,7 +41,10 @@ const Navbar: React.FC = () => {
         </Link>
 
         {/* <Link href={`/nav/${account}`}> */}
-        <Link href="/signupservice" className="relative  h-7 w-7">
+        <Link
+          href={isLoggedIn ? "/account" : "/signupservice"}
+          className="relative  h-7 w-7"
+        >
           <div>
             <Image
               src="/icon.png"

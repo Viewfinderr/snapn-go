@@ -2,12 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
+import { useRouter } from "next/navigation";
 import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -25,6 +27,8 @@ function Login() {
       console.log(data);
       if (!response.ok) {
         throw new Error(data.error || "Quelque chose a mal tourné");
+      } else if (response.ok) {
+        router.push("/");
       }
       setMessage("Connexion réussie!");
       toast.success("Connexion réussie!", {
@@ -38,19 +42,6 @@ function Login() {
       });
     } catch (err: any) {
       setMessage(err.toString());
-    }
-  };
-
-  const handleLogout = async () => {
-    try {
-      await fetch("/api/auth/logout", {
-        method: "POST",
-      });
-      // Effacer le token JWT stocké en supprimant le cookie
-      document.cookie =
-        "jwtToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT;";
-    } catch (error) {
-      console.error("Erreur lors de la déconnexion :", error);
     }
   };
 
@@ -149,16 +140,6 @@ function Login() {
             </div>
           </div>
         </form>
-
-        {/* Bouton de déconnexion */}
-        <div className="flex justify-center mt-4">
-          <button
-            onClick={handleLogout}
-            className="text-red-500 font-semibold hover:text-red-700"
-          >
-            Se déconnecter
-          </button>
-        </div>
       </div>
     </div>
   );

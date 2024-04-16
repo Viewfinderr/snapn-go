@@ -60,8 +60,15 @@ export default async function handler(
 
     const newUser = await createUser(email, password);
     const secret = process.env.JWT_SECRET as string;
+
     const token = jwt.sign(
-      { userId: newUser.id.toString(), email: newUser.email },
+      {
+        userId: newUser.id.toString(),
+        email: newUser.email,
+        idFavorites: newUser.idFavorites.toString(),
+        idHistorique: newUser.idHistorique.toString(),
+        idCart: newUser.idCart.toString(),
+      },
       secret,
       { expiresIn: "2h" }
     );
