@@ -24,7 +24,7 @@ const Navbar: React.FC = () => {
     checkLoginStatus();
   }, []);
   return (
-    <div>
+    <div className="md:hidden">
       <div></div>
       <div className="flex justify-between items-center h-20 p-4  border-b-4 fixed bottom-0 w-full bg-greenNav">
         <Link href="/">
@@ -42,7 +42,7 @@ const Navbar: React.FC = () => {
 
         {/* <Link href={`/nav/${account}`}> */}
         <Link
-          href={isLoggedIn ? "/account" : "/signupservice"}
+          href={isLoggedIn ? "/account" : "/choice"}
           className="relative  h-7 w-7"
         >
           <div>

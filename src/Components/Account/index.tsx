@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Account() {
   const [newEmail, setNewEmail] = useState("");
@@ -10,7 +10,33 @@ export default function Account() {
   const [showPasswordInput, setShowPasswordInput] = useState(false);
   const [error, setError] = useState("");
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const router = useRouter();
+
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        const response = await fetch("/api/auth/verifAuth");
+        if (response.ok) {
+          setIsLoggedIn(true);
+        } else {
+          router.push("/"); // Redirection vers '/' si l'utilisateur n'est pas connecté
+        }
+      } catch (error) {
+        console.error(
+          "Erreur lors de la vérification du statut de connexion : ",
+          error
+        );
+        router.push("/"); // Redirection en cas d'erreur de vérification
+      }
+    };
+
+    checkLoginStatus();
+  }, []);
+
+  useEffect(() => {
+    console.log("User is logged in:", isLoggedIn);
+  }, [isLoggedIn]);
 
   const handleChangeEmail = async () => {
     try {
@@ -115,16 +141,16 @@ export default function Account() {
     }
   };
 
-  const isValidEmail = (email) => {
+  const isValidEmail = (email: any) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
-  const isValidPassword = (password) => {
+  const isValidPassword = (password: any) => {
     return password.length >= 8;
   };
 
-  const handleButtonClick = (type) => {
+  const handleButtonClick = (type: any) => {
     switch (type) {
       case "email":
         setShowEmailInput(true);
@@ -160,7 +186,7 @@ export default function Account() {
           loading="lazy"
         />
       </div>
-      <div className="mx-6 mt-36 flex flex-col gap-5">
+      <div className="mx-6 md:mx-36 mt-36 flex flex-col gap-5">
         <h1 className="font-custom font-bold">Account Page</h1>
         <p>This is the account page</p>
         <div className="flex flex-col items-center gap-5">

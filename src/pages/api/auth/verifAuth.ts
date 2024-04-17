@@ -1,5 +1,3 @@
-// api/auth.ts
-
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
@@ -35,7 +33,7 @@ export default async function handler(
         }
       );
     } catch (error) {
-      console.error("Erreur de vérification du token : ", error);
+      // Au lieu de l'afficher dans la console, renvoyer une réponse avec un statut approprié
       return res.status(500).json({ message: "Erreur interne du serveur." });
     }
   } else {

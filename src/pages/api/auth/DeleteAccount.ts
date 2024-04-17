@@ -1,7 +1,7 @@
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import prisma from "../../../libs/prismadb";
 
-const verifyTokenAndAuthenticate = (req, res, next) => {
+const verifyTokenAndAuthenticate = (req: any, res: any, next: any) => {
   const token = req.cookies.jwtToken;
   if (!token) {
     console.log("No JWT token found in cookies");
@@ -9,7 +9,12 @@ const verifyTokenAndAuthenticate = (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const secret = process.env.JWT_SECRET;
+    if (!secret) {
+      console.error("JWT_SECRET is not defined.");
+      return res.status(500).json({ error: "Server configuration error." });
+    }
+    const decoded = jwt.verify(token, secret) as JwtPayload; // Ajout de l'assertion de type
     // Décomposer les données décodées pour extraire les IDs nécessaires
     const { userId, idFavorites, idHistorique, idCart } = decoded;
     req.userId = userId;
@@ -31,7 +36,7 @@ const verifyTokenAndAuthenticate = (req, res, next) => {
   }
 };
 
-export default async function handler(req, res) {
+export default async function handler(req: any, res: any) {
   verifyTokenAndAuthenticate(req, res, async () => {
     if (req.method === "POST") {
       const { userId, idFavorites, idHistorique, idCart } = req;
