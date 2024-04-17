@@ -1,5 +1,6 @@
 "use client";
 import Navbar from "@/Components/navbar";
+import Footer from "@/Components/UI/footer";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -158,6 +159,7 @@ const CartPage = () => {
         </div>
       </div>
       <Navbar />
+      <Footer />
     </div>
   );
 };

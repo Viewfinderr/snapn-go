@@ -2,6 +2,7 @@
 
 import Favorites from "@/Components/favorites";
 import Navbar from "@/Components/navbar";
+import Footer from "@/Components/UI/footer";
 
 // Définir la fonction de composant de page
 const favoritesPage = () => {
@@ -9,6 +10,7 @@ const favoritesPage = () => {
     <div>
       <Favorites></Favorites>
       <Navbar></Navbar>
+      <Footer />
     </div>
   );
 };

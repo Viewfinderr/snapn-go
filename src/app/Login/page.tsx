@@ -2,6 +2,7 @@
 
 import Login from "@/Components/formLogin";
 import Navbar from "@/Components/navbar";
+import Footer from "@/Components/UI/footer";
 
 // Définir la fonction de composant de page
 const Page = () => {
@@ -9,6 +10,7 @@ const Page = () => {
     <>
       <Login></Login>
       <Navbar></Navbar>
+      <Footer />
     </>
   );
 };

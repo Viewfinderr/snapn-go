@@ -1,4 +1,5 @@
 import React from "react";
+import Footer from "@/Components/UI/footer";
 import CGV from "@/Components/cgv";
 // import BackButton from "@/Components/BackButton";
 
@@ -7,6 +8,7 @@ const App = () => {
     <div>
       {/* <BackButton /> */}
       <CGV />
+      <Footer />
     </div>
   );
 };

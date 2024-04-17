@@ -1,5 +1,5 @@
 "use client";
-
+import Footer from "@/Components/UI/footer";
 import Account from "@/Components/Account";
 import Navbar from "@/Components/navbar";
 
@@ -9,6 +9,7 @@ const Page = () => {
     <>
       <Account />
       <Navbar />
+      <Footer />
     </>
   );
 };

@@ -1,5 +1,5 @@
 "use client";
-
+import Footer from "@/Components/UI/footer";
 import Navbar from "@/Components/navbar";
 import Register from "@/Components/register";
 
@@ -9,6 +9,7 @@ const Page = () => {
     <>
       <Register></Register>
       <Navbar></Navbar>
+      <Footer />
     </>
   );
 };
