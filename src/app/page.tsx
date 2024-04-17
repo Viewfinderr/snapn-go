@@ -1,3 +1,4 @@
+
 import FoodSlider from "@/Components/FoodSlider";
 import Items from "@/Components/Items";
 import Navbar from "@/Components/navbar";
