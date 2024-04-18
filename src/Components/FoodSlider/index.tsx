@@ -46,7 +46,7 @@ const FoodSlider: React.FC = () => {
     <div className="relative flex items-center justify-center bg-greenButton lg:bg-fontDesktop ">
       <button
         onClick={loadAllItems} // Bouton pour charger tous les items
-        className="w-24 h-12 md:w-20 md:h-20 rounded-full flex items-center justify-center bg-bgSliderDesktop "
+        className="w-24 h-12 md:w-20 md:h-20 rounded-full flex items-center justify-center bg-bgSliderDesktop cursor-pointer "
       >
         <Image src="/img/cercle.png" width={25} height={25}></Image>
       </button>
@@ -57,7 +57,7 @@ const FoodSlider: React.FC = () => {
         {images.map((img, index) => (
           <div
             key={index}
-            className="rounded-full p-1"
+            className="rounded-full p-1 cursor-pointer"
             onClick={() => handleImageClick(index + 1)}
           >
             <div className="w-12 h-12 md:w-20 md:h-20 rounded-full flex items-center justify-center bg-bgSliderDesktop overflow-hidden">
