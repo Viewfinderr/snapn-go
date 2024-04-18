@@ -3,6 +3,7 @@ import Navbar from "@/Components/navbar";
 import Footer from "@/Components/UI/footer";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import DesktopNav from "@/Components/DesktopNav";
 
 interface CartItem {
   id: string;
@@ -60,6 +61,7 @@ const CartPage = () => {
 
   return (
     <div>
+      <DesktopNav />
       <div className="flex items-center justify-center">
         <Image
           src="/Icon.svg"

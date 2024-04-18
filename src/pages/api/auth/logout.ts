@@ -7,5 +7,4 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     "jwtToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Secure; SameSite=Strict"
   );
   res.status(200).json({ message: "Déconnexion réussie!" });
-  console.log("Déconnexion réussie!");
 }

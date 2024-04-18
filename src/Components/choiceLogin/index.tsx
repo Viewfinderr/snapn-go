@@ -3,8 +3,8 @@ import Link from "next/link";
 
 export default function choice() {
   return (
-    <div>
-      <div className="flex items-center justify-center mt-5">
+    <div className="md:h-[75vh]">
+      <div className="flex items-center justify-center mt-5 ">
         <Image
           src="/Icon.svg"
           width={58}
@@ -21,7 +21,7 @@ export default function choice() {
         <div className="flex flex-col items-center justify-center mx-10 md:mx-36">
           <Link
             href="/signupservice"
-            className="border-[1px] border-solid rounded border-grayBorder w-full text-center md:bg-greenButton md:text-white  md:w-[35vw] md:h-[2vw] flex justify-center items-center"
+            className="border-[1px] border-solid rounded border-grayBorder w-full text-center md:bg-greenButton md:text-white  md:w-[30vw] md:h-[3vw] flex justify-center items-center"
           >
             Register
           </Link>
@@ -29,7 +29,7 @@ export default function choice() {
         <div className="flex flex-col items-center justify-center mx-10 ">
           <Link
             href="/Login"
-            className="border-[1px] border-solid rounded border-grayBorder w-full text-center md:bg-greenButton md:text-white md:w-[35vw] md:h-[2vw] flex justify-center items-center "
+            className="border-[1px] border-solid rounded border-grayBorder w-full text-center md:bg-greenButton md:text-white md:w-[30vw] md:h-[3vw] flex justify-center items-center "
           >
             Login
           </Link>

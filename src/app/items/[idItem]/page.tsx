@@ -2,6 +2,7 @@ import { Items } from "@prisma/client";
 import { getOneItem } from "@/pages/api/getOneItem";
 import Navbar from "@/Components/navbar";
 import Footer from "@/Components/UI/footer";
+import DesktopNav from "@/Components/DesktopNav";
 
 interface OneItemProps {
   params: {
@@ -21,6 +22,7 @@ export default async function OneItem({ params }: OneItemProps) {
 
   return (
     <div className="bg-greenButton min-h-screen flex flex-col">
+      <DesktopNav />
       <Navbar />
       <div className="flex-grow">
         <div className="max-w-md mx-auto text-center mt-8 mb-8">

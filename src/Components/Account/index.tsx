@@ -34,9 +34,7 @@ export default function Account() {
     checkLoginStatus();
   }, []);
 
-  useEffect(() => {
-    console.log("User is logged in:", isLoggedIn);
-  }, [isLoggedIn]);
+  useEffect(() => {}, [isLoggedIn]);
 
   const handleChangeEmail = async () => {
     try {
@@ -44,8 +42,6 @@ export default function Account() {
         setError("Invalid email format");
         return;
       }
-
-      console.log("Sending request to update email");
       const response = await fetch("/api/auth/UpdateEmail", {
         method: "POST",
         headers: {
@@ -54,12 +50,6 @@ export default function Account() {
         body: JSON.stringify({ newEmail }),
         credentials: "include",
       });
-
-      if (response.ok) {
-        console.log("Email updated successfully");
-      } else {
-        console.error("Error updating email. Status:", response.status);
-      }
     } catch (error) {
       console.error("Error:", error);
     }
@@ -71,8 +61,6 @@ export default function Account() {
         setError("Password must be at least 8 characters long");
         return;
       }
-
-      console.log("Sending request to update password");
       const response = await fetch("/api/auth/UpdatePassword", {
         method: "POST",
         headers: {
@@ -81,12 +69,6 @@ export default function Account() {
         body: JSON.stringify({ newPassword }),
         credentials: "include",
       });
-
-      if (response.ok) {
-        console.log("Password updated successfully");
-      } else {
-        console.error("Error updating password. Status:", response.status);
-      }
     } catch (error) {
       console.error("Error:", error);
     }
@@ -99,14 +81,12 @@ export default function Account() {
 
   const confirmDeleteAccount = async () => {
     try {
-      console.log("Sending request to delete account");
       const response = await fetch("/api/auth/DeleteAccount", {
         method: "POST",
         credentials: "include",
       });
 
       if (response.ok) {
-        console.log("Account deleted successfully");
         try {
           await fetch("/api/auth/logout", {
             method: "POST",
@@ -175,8 +155,8 @@ export default function Account() {
   };
 
   return (
-    <>
-      <div className="flex justify-center">
+    <div className="md:h-[75vh]">
+      <div className="flex justify-center ">
         <Image
           src="/Icon.svg"
           width={58}
@@ -186,7 +166,7 @@ export default function Account() {
           loading="lazy"
         />
       </div>
-      <div className="mx-6 md:mx-36 mt-36 flex flex-col gap-5">
+      <div className="mx-6 md:mx-44  mt-36 flex flex-col gap-5">
         <h1 className="font-custom font-bold">Account Page</h1>
         <p>This is the account page</p>
         <div className="flex flex-col items-center gap-5">
@@ -197,12 +177,12 @@ export default function Account() {
                 value={newEmail}
                 onChange={(e) => setNewEmail(e.target.value)}
                 placeholder="Enter new email"
-                className="border-[1px] border-solid rounded border-grayBorder w-full text-center"
+                className="border-[1px] border-solid rounded border-grayBorder w-full text-center md:w-[40vw] md:h-[3vw] "
               />
               <div className="flex gap-3">
                 <button
                   onClick={handleChangeEmail}
-                  className="border-[1px] border-solid rounded border-grayBorder w-full text-center"
+                  className="border-[1px] border-solid rounded border-grayBorder w-full text-center md:w-[20vw] md:h-[3vw]"
                 >
                   Send
                 </button>
@@ -223,12 +203,12 @@ export default function Account() {
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 placeholder="Enter new password"
-                className="border-[1px] border-solid rounded border-grayBorder w-full text-center"
+                className="border-[1px] border-solid rounded border-grayBorder w-full text-center md:w-[40vw] md:h-[3vw]"
               />
               <div className="flex gap-3">
                 <button
                   onClick={handleChangePassword}
-                  className="border-[1px] border-solid rounded border-grayBorder w-full text-center"
+                  className="border-[1px] border-solid rounded border-grayBorder w-full text-center md:w-[20vw] md:h-[3vw]"
                 >
                   Send
                 </button>
@@ -245,7 +225,7 @@ export default function Account() {
           {!showEmailInput && (
             <button
               onClick={() => handleButtonClick("email")}
-              className="border-[1px] border-solid rounded border-grayBorder w-full text-center"
+              className="border-[1px] border-solid rounded border-grayBorder w-full text-center md:w-[35vw] md:h-[3vw]"
             >
               Change my email
             </button>
@@ -254,7 +234,7 @@ export default function Account() {
           {!showPasswordInput && (
             <button
               onClick={() => handleButtonClick("password")}
-              className="border-[1px] border-solid rounded border-grayBorder w-full text-center"
+              className="border-[1px] border-solid rounded border-grayBorder w-full text-center md:w-[35vw] md:h-[3vw]"
             >
               Change my password
             </button>
@@ -283,7 +263,7 @@ export default function Account() {
           {!showDeleteConfirmation && (
             <button
               onClick={handleDeleteAccount}
-              className="border-[1px] border-solid rounded border-grayBorder w-full text-center"
+              className="border-[1px] border-solid rounded border-grayBorder w-full text-center md:w-[35vw] md:h-[3vw]"
             >
               Delete account
             </button>
@@ -296,6 +276,6 @@ export default function Account() {
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 }

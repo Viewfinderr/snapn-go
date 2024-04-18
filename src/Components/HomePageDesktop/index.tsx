@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from "react";
-import Link from 'next/link'; // Importez Link de next/link
+import Link from "next/link"; // Importez Link de next/link
 
 const titleHeightPercentage = 10; // Pourcentage de la hauteur de l'écran que le titre devrait occuper
 
@@ -13,34 +12,22 @@ export default function Home() {
           {" "}
           {/* Ajustez le padding ici */}
           <Link href="/">
-            <p className="hover:underline flex-1 text-center">
-              Snapn'Go
-            </p>
+            <p className="hover:underline flex-1 text-center">Snapn'Go</p>
           </Link>
           <Link href="#">
-            <p className="hover:underline flex-1 text-center">
-              Supermarché
-            </p>
+            <p className="hover:underline flex-1 text-center">Supermarché</p>
           </Link>
           <Link href="/cart">
-            <p className="hover:underline flex-1 text-center">
-              Mon panier
-            </p>
+            <p className="hover:underline flex-1 text-center">Mon panier</p>
           </Link>
           <Link href="/contact">
-            <p className="hover:underline flex-1 text-center">
-              Contact
-            </p>
+            <p className="hover:underline flex-1 text-center">Contact</p>
           </Link>
           <Link href="#">
-            <p className="hover:underline flex-1 text-center">
-              Login
-            </p>
+            <p className="hover:underline flex-1 text-center">Login</p>
           </Link>
           <Link href="#">
-            <p className="hover:underline flex-1 text-center">
-              Mon compte
-            </p>
+            <p className="hover:underline flex-1 text-center">Mon compte</p>
           </Link>
         </nav>
       </div>
@@ -68,7 +55,6 @@ export default function Home() {
       </div>
       <div className="mb-5 h-5 w-full bg-green-800"></div>{" "}
       {/* Marge de 5px de haut */}
-
       {/* Section sous l'image */}
       <div className="flex mb-24">
         {/* Colonne de texte à gauche (70% de largeur) */}
@@ -84,9 +70,9 @@ export default function Home() {
             meilleur de la nature tout en soutenant une agriculture durable.
           </p>
           <Link href="/">
-          <button className="bg-greenButton text-white px-6 py-2 w-64 h-14 font-bold ">
-            Commencer
-          </button>
+            <button className="bg-greenButton text-white px-6 py-2 w-64 h-14 font-bold ">
+              Commencer
+            </button>
           </Link>
         </div>
 

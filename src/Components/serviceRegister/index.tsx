@@ -4,7 +4,7 @@ import Navbar from "../navbar";
 
 function ServiceRegister() {
   return (
-    <div className=" flex flex-col mt-7 ">
+    <div className=" flex flex-col mt-7 md:h-[75vh]">
       <div className="max-w-md w-full mx-auto ">
         <div className="flex items-center justify-center ">
           <Image

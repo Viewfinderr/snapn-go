@@ -24,7 +24,6 @@ function Login() {
         body: JSON.stringify({ email, password }),
       });
       const data = await response.json();
-      console.log(data);
       if (!response.ok) {
         throw new Error(data.error || "Quelque chose a mal tourné");
       } else if (response.ok) {

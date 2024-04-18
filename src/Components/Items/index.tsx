@@ -46,8 +46,6 @@ const Items: React.FC = () => {
       if (!response.ok) {
         throw new Error("Failed to add item to cart");
       }
-
-      console.log("Item ajouté au panier avec succès");
     } catch (error) {
       console.error("Erreur lors de l'ajout de l'item au panier :", error);
     }
@@ -74,7 +72,7 @@ const Items: React.FC = () => {
                     <div className="relative">
                       {/* Début de la balise Link */}
                       <Link href={`/items/${item.idItem}`}>
-                        <a>
+                        <>
                           {" "}
                           {/* Ajout d'une balise <a> pour envelopper le contenu cliquable */}
                           <img
@@ -85,7 +83,7 @@ const Items: React.FC = () => {
                           <div className="absolute top-0 right-0 bg-yellow-400 text-yellow-800 text-xs rounded-full m-2 px-2 py-1">
                             ★
                           </div>
-                        </a>{" "}
+                        </>{" "}
                         {/* Fermeture de la balise <a> */}
                       </Link>{" "}
                       {/* Fermeture de la balise Link */}

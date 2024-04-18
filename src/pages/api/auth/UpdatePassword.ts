@@ -6,14 +6,12 @@ import bcrypt from "bcrypt";
 const verifyTokenAndAuthenticate = (req, res, next) => {
   const token = req.cookies.jwtToken;
   if (!token) {
-    console.log("No JWT token found in cookies");
     return res.status(401).json({ error: "Unauthorized" });
   }
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.userId = decoded.userId;
-    console.log("JWT token verified. User ID:", req.userId);
     next();
   } catch (error) {
     console.error("Error verifying JWT:", error);
@@ -30,11 +28,8 @@ export default async function handler(req, res) {
         const userId = req.userId;
 
         if (!isValidPassword(newPassword)) {
-          console.log("Invalid password format");
           return res.status(400).json({ error: "Invalid password format" });
         }
-
-        console.log("Updating password for user ID:", userId);
 
         // Hasher le mot de passe
         const hashedPassword = await bcrypt.hash(newPassword, 10);
@@ -45,14 +40,12 @@ export default async function handler(req, res) {
           data: { passwordHash: hashedPassword }, // Mettre à jour le champ passwordHash avec le mot de passe haché
         });
 
-        console.log("Password updated successfully for user ID:", userId);
         res.status(200).json({ message: "Password updated successfully" });
       } catch (error) {
         console.error("Error updating password:", error);
         res.status(500).json({ error: "Unable to update password" });
       }
     } else {
-      console.log("Method not allowed:", req.method);
       res.status(405).json({ error: "Method not allowed" });
     }
   });

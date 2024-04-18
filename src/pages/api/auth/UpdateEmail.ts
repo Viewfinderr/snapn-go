@@ -5,17 +5,14 @@ import jwt from "jsonwebtoken";
 const verifyTokenAndAuthenticate = (req, res, next) => {
   const token = req.cookies.jwtToken;
   if (!token) {
-    console.log("No JWT token found in cookies");
     return res.status(401).json({ error: "Unauthorized" });
   }
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.userId = decoded.userId;
-    console.log("JWT token verified. User ID:", req.userId);
     next();
   } catch (error) {
-    console.error("Error verifying JWT:", error);
     return res.status(403).json({ error: "Invalid token" });
   }
 };
@@ -38,14 +35,12 @@ export default async function handler(req, res) {
       const { newEmail } = req.body;
       try {
         const userId = req.userId; // Utiliser l'ID de l'utilisateur à partir du JWT
-        console.log("User ID:", userId);
 
         // Vérifier si l'e-mail est déjà utilisé par un autre utilisateur
         const userWithSameEmail = await prisma.users.findFirst({
           where: { email: newEmail },
         });
         if (userWithSameEmail && userWithSameEmail.id !== userId) {
-          console.log("Email already in use:", newEmail);
           return res.status(400).json({ error: "Email already in use" });
         }
 
@@ -58,14 +53,12 @@ export default async function handler(req, res) {
         // Convertir les BigInts en nombres JavaScript simples dans la réponse JSON
         updatedUser = convertBigIntsToNumbers(updatedUser);
 
-        console.log("Email updated for user ID:", userId);
         res.status(200).json(updatedUser);
       } catch (error) {
         console.error("Error updating email:", error);
         res.status(500).json({ error: "Unable to update email" });
       }
     } else {
-      console.log("Method not allowed:", req.method);
       res.status(405).json({ error: "Method not allowed" });
     }
   });
