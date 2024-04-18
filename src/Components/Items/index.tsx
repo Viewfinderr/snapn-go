@@ -1,7 +1,8 @@
 // components/Items.tsx
 "use client";
+import { useItems } from "@/context/ItemsContext";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react"; // Assurez-vous que le chemin d'importation est correct
 
 interface Item {
   idItem: string;
@@ -11,25 +12,8 @@ interface Item {
 }
 
 const Items: React.FC = () => {
-  const [items, setItems] = useState<Item[]>([]);
+  const { items } = useItems();
   const [searchTerm, setSearchTerm] = useState("");
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/api/getItems");
-        if (!response.ok) {
-          throw new Error("Failed to fetch");
-        }
-        const data: Item[] = await response.json();
-        setItems(data);
-      } catch (error) {
-        console.error("Erreur lors de la récupération des items:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const addToCart = async (itemToAdd: Item) => {
     try {
@@ -50,6 +34,7 @@ const Items: React.FC = () => {
       console.error("Erreur lors de l'ajout de l'item au panier :", error);
     }
   };
+
   return (
     <div className="bg-greenButton lg:bg-fontDesktop px-6">
       <input
@@ -57,7 +42,7 @@ const Items: React.FC = () => {
         placeholder="Rechercher un item..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="mb-4 p-2 border border-gray-300 rounded"
+        className=" md:hidden mb-4 p-2 border border-gray-300 rounded"
       />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
         {items

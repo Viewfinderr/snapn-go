@@ -43,21 +43,22 @@ const Navbar: React.FC = () => {
         {/* <Link href={`/nav/${account}`}> */}
         <Link
           href={isLoggedIn ? "/account" : "/choice"}
-          className="relative  h-7 w-7"
+          className="relative h-5 w-10"
         >
-          <div>
+          <div className="relative z-20">
+            {" "}
+            {/* Ajout de la classe z-20 */}
             <Image
               src="/icon.png"
               alt="Person Icon"
               loading="lazy"
-              className="z-10"
               width={20}
               height={20}
             />
           </div>
           <div
-            className="absolute "
-            style={{ top: "-10%", left: "50%", transform: "translateX(-50%)" }}
+            className="absolute"
+            style={{ top: "-35%", left: "26%", transform: "translateX(-50%)" }}
           >
             <Image src="/image_545.png" alt="Hat Icon" width={20} height={20} />
           </div>
