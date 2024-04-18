@@ -10,7 +10,7 @@ export default function Footer() {
           <h3 className="font-semibold">Snapn'Go</h3>
           <ul className="mt-4 space-y-2 text-sm">
             <li>
-              <Link href="/AboutUs">
+              <Link href="/aboutus">
                 <p className="hover:underline ">Qui sommes-nous ?</p>
               </Link>
             </li>

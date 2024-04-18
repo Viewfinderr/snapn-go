@@ -1,20 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation"; // Correction du chemin pour 'router'
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import { useRouter } from "next/navigation";
 import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
   const router = useRouter();
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage("");
-
     try {
       const response = await fetch("/api/auth/login", {
         method: "POST",
@@ -26,10 +23,8 @@ function Login() {
       const data = await response.json();
       if (!response.ok) {
         throw new Error(data.error || "Quelque chose a mal tourné");
-      } else if (response.ok) {
-        router.push("/");
       }
-      setMessage("Connexion réussie!");
+      router.push("/");
       toast.success("Connexion réussie!", {
         position: "top-center",
         autoClose: 2000,
@@ -39,8 +34,16 @@ function Login() {
         draggable: true,
         progress: undefined,
       });
-    } catch (err: any) {
-      setMessage(err.toString());
+    } catch (err) {
+      toast.error(err.message, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -53,16 +56,15 @@ function Login() {
             width={58}
             height={58}
             alt="Icon site web"
-            className="mb-4"
             loading="lazy"
           />
         </div>
         <ToastContainer />
-        <h2 className="mt-20 mb-2 ml-6  text-3xl font-custom font-bold ">
+        <h2 className="mt-20 mb-2 ml-6 text-3xl font-custom font-bold">
           Login
         </h2>
         <p className="mx-6 text-gray-600 mb-2 font-custom font-regular">
-          Welcome back. Enter your credentials to access your account
+          Welcome back. Enter your credentials to access your account.
         </p>
 
         <form className="px-6 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
