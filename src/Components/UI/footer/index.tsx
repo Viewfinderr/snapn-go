@@ -5,7 +5,7 @@ import Link from 'next/link'; // Importez Link de next/link
 export default function Footer() {
     return (
       /* Pied de page */
-      <footer className="bg-[#E1A325] mt-auto">
+      <footer className="bg-[#E1A325] mt-auto  ">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 grid grid-cols-2 md:grid-cols-4 gap-2 text-center">
           <div>
             <h3 className="font-semibold">Snapn'Go</h3>
@@ -66,7 +66,7 @@ export default function Footer() {
             <h3 className=" font-semibold">Account Settings</h3>
             <ul className="mt-4 space-y-2 text-sm">
               <li>
-                <Link href="/account">
+                <Link href="/Account">
                   <p className="hover:underline">My account</p>
                 </Link>
               </li>
@@ -83,8 +83,8 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        <div className="border-t border-yellow-600 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+        <div className="border-t border-yellow-600 bg-white ">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between ">
             <p>© 2024 Snapn'Go - Tous droits réservés</p>
             <div className="flex flex-wrap">
               <Link href="#">
